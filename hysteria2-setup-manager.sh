@@ -3,6 +3,7 @@
 # Hysteria2 Setup Manager by neketabrain
 # =========================================
 
+SYSTEMD_SERVICE_PATH="/etc/systemd/system/hysteria-server.service"
 HYSTERIA2_CONFIG_PATH="/etc/hysteria/config.json"
 HYSTERIA2_YAML_CONFIG_PATH="/etc/hysteria/config.yaml"
 FALLBACK_DIR_PATH="/var/www/masq"
@@ -239,9 +240,14 @@ function install_hysteria2() {
     return 1
   fi
 
+  mkdir -p $FALLBACK_DIR_PATH || true
   rm -rf $HYSTERIA2_YAML_CONFIG_PATH || true
-  wget -qO $HYSTERIA2_CONFIG_PATH https://raw.githubusercontent.com/neketabrain/hysteria2-setup-manager/main/configs/config.yaml
+
+  wget -qO $HYSTERIA2_CONFIG_PATH https://raw.githubusercontent.com/neketabrain/hysteria2-setup-manager/main/configs/config.json
   wget -qO $FALLBACK_DIR_PATH/index.html https://raw.githubusercontent.com/neketabrain/hysteria2-setup-manager/main/configs/index.html
+
+  systemctl daemon-reload
+  sed -i'' -e "s|${HYSTERIA2_YAML_CONFIG_PATH}|${HYSTERIA2_CONFIG_PATH}|g" $SYSTEMD_SERVICE_PATH
 
   echo "$(ColorGreen 'Готово! Hysteria2 установлена')"
 
