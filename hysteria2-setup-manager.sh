@@ -246,6 +246,10 @@ function install_hysteria2() {
   wget -qO $HYSTERIA2_CONFIG_PATH https://raw.githubusercontent.com/neketabrain/hysteria2-setup-manager/main/configs/config.json
   wget -qO $FALLBACK_DIR_PATH/index.html https://raw.githubusercontent.com/neketabrain/hysteria2-setup-manager/main/configs/index.html
 
+  chmod 600 $HYSTERIA2_CONFIG_PATH
+  chgrp hysteria $HYSTERIA2_CONFIG_PATH
+  chown hysteria:hysteria $HYSTERIA2_CONFIG_PATH
+
   systemctl daemon-reload
   sed -i'' -e "s|${HYSTERIA2_YAML_CONFIG_PATH}|${HYSTERIA2_CONFIG_PATH}|g" $SYSTEMD_SERVICE_PATH
 

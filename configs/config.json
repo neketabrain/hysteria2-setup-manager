@@ -7,9 +7,7 @@
   },
   "auth": {
     "type": "userpass",
-    "userpass": {
-      "admin": "admin"
-    }
+    "userpass": {}
   },
   "masquerade": {
     "type": "file",
