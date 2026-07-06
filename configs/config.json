@@ -1,0 +1,23 @@
+{
+  "listen": "0.0.0.0:443",
+  "acme": {
+    "type": "http",
+    "domains": ["your_domain.com"],
+    "email": "your@email.net"
+  },
+  "auth": {
+    "type": "userpass",
+    "userpass": {
+      "admin": "admin"
+    }
+  },
+  "masquerade": {
+    "type": "file",
+    "file": {
+      "dir": "/var/www/masq"
+    },
+    "listenHTTP": ":80",
+    "listenHTTPS": ":443",
+    "forceHTTPS": true
+  }
+}
